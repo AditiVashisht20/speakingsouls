@@ -1,0 +1,150 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #acb328;
+  color: white;
+  padding: 15px 30px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-links a,
+.book-btn {
+  margin-left: 20px;
+  color: white;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.book-btn {
+  background-color: #e74c3c;
+  padding: 8px 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.book-btn:hover {
+  background-color: #c0392b;
+}
+
+.popup-form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.form-box {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+}
+
+.form-box input,
+.form-box textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.book-btn,
+.cancel-btn,
+.form-box button[type="submit"] {
+  
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.form-popup {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #444;
+  cursor: pointer;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+form button {
+  width: 90%;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #ecc85b; /* yellow */
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+    width: auto; /* make it only as wide as content */
+  margin: 0 auto; /* center the button horizontally */
+  display: block; 
+}
+
+form button:hover {
+  background-color: #e0a800; /* darker yellow on hover */
+}
