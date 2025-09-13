@@ -47,8 +47,8 @@ app.post('/submit', (req, res) => {
   const { name, email, contact, event_name, event_date, event_city, message } = req.body;
 
   const query = `
-    INSERT INTO bookings (name, email, contact, event_name, event_date, event_city, message)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO bookings (name, email, contact, message)
+    VALUES (?, ?, ?, ?)
   `;
 
   db.query(
@@ -103,7 +103,7 @@ app.get('/api/events', (req, res) => {
       console.error('Error fetching events:', err);
       return res.status(500).json({ error: 'Database error' });
     }
-     console.log("Raw DB Results:", results)
+    // console.log("Raw DB Results:", results)
 //     res.json(results);
 //   });
 // });
@@ -119,7 +119,7 @@ const events = results.map(event => {
       }
 
 
-     console.log("After fix poster:", filename); 
+    // console.log("After fix poster:", filename); 
 return {
 
       ...event,
@@ -127,10 +127,45 @@ return {
     };
   });
 
- console.log("Final Events Sent:", events);
+// console.log("Final Events Sent:", events);
     res.json(events);
 });
 });
 
 
+  app.post('/api/reservations', (req, res) => {
+    console.log('Reservation route hit');
 
+    console.log('Request body:', req.body);
+      const { event_name, event_city, event_date, user_name, phone_number } = req.body;
+        
+
+      const sql = `
+          INSERT INTO reservations (event_name, event_city, event_date, user_name, phone_number)
+          VALUES (?, ?, ?, ?, ?)
+      `;
+
+      const values = [event_name, event_city, event_date, user_name, phone_number];
+
+      db.query(sql, values, (err, result) => {
+          if (err) {
+              console.error('Error saving reservation:', err);
+              return res.status(500).json({ error: 'Database error' });
+          }
+          res.status(200).json({ message: 'Reservation saved successfully' });
+      });
+  });
+
+
+  app.get('/api/reservations', (req, res) => {
+    const sql = `SELECT * FROM reservations ORDER BY id DESC`;
+
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Error fetching reservations:', err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+        console.log('Fetched reservations from front end', results);  
+        res.json(results);
+    });
+});

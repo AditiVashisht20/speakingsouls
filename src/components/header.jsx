@@ -48,9 +48,9 @@ const toggleForm = () => {
         name: '',
         email: '',
         contact: '',
-        event_name: '',
-        event_date: '',
-        event_city: '',
+        //event_name: '',
+        //event_date: '',
+        //event_city: '',
         message: '',
       });
     } catch (err) {
@@ -66,7 +66,7 @@ const toggleForm = () => {
         <nav className="nav-links">
           <a href="#home">Home</a>
           <a href="#about">About</a>
-          <button className="book-btn" onClick={toggleForm}>Book Event</button>
+          <button className="book-btn" onClick={toggleForm}>Contact Us</button>
         </nav>
       </header>
 
@@ -103,7 +103,7 @@ const toggleForm = () => {
                 required
                 title="Phone number is invalid"
               />
-              <input
+              {/* <input
                 type="text"
                 name="event_name"
                 placeholder="Event Name"
@@ -127,8 +127,8 @@ const toggleForm = () => {
                 placeholder="Event City"
                 value={formData.event_city}
                 onChange={handleChange}
-                required
-              />
+                required */}
+
               <textarea
                 name="message"
                 placeholder="Message"

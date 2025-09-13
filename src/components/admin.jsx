@@ -3,9 +3,28 @@ import axios from 'axios';
 import './adminpanel.css';
 
 const AdminPanel = () => {
-  const [visibleSection, setVisibleSection] = useState(''); // 'add', 'view', 'list'
+  const [visibleSection, setVisibleSection] = useState(''); 
   const [bookingData, setBookingData] = useState([]);
   const [eventList, setEventList] = useState([]);
+
+         // const [visibleSection, setVisibleSection] = useState(''); // 'add', 'view', 'list', 'tickets'
+          const [tickets, setTickets] = useState([]);
+
+          const fetchTickets = async () => {
+  try {
+    const res = await fetch('http://localhost:5000/api/reservations');
+    const data = await res.json();
+    setTickets(data);
+  } catch (error) {
+    console.error('Error fetching tickets:', error);
+    setTickets([]);
+  }
+};
+
+const showTickets = async () => {
+  await fetchTickets();
+  setVisibleSection('tickets');
+};
 
   // FETCH BOOKINGS
   const fetchBookingData = async () => {
@@ -54,12 +73,52 @@ const AdminPanel = () => {
       </button>
 
       <button onClick={showViewData} style={{ marginRight: '10px' }}>
-        View Bookings
+        Contact us queries  
       </button>
 
       <button onClick={showEventList}>
         Events Listed
       </button>
+
+
+        <button onClick={showTickets} style={{ marginRight: '10px' }}>
+            Tickets Booked
+          </button>
+
+
+{/* SECTION: TICKETS BOOKED */}
+{visibleSection === 'tickets' && (
+  tickets.length > 0 ? (
+    <table className="admin-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Event Name</th>
+          <th>Event City</th>
+          <th>Event Date</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Date Booked</th>
+        </tr>
+      </thead>
+      <tbody> 
+        {tickets.map((ticket, index) => (
+          <tr key={index}>
+            <td>{ticket.id}</td>
+            <td>{ticket.event_name}</td>
+            <td>{ticket.event_city}</td>
+            <td>{ticket.event_date?.split('T')[0]}</td>
+            <td>{ticket.user_name}</td>
+            <td>{ticket.phone_number}</td>
+            <td>{ticket.date_booked ? ticket.date_booked.split('T')[0] : '-'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  ) : (
+    <p style={{ marginTop: '20px' }}>No tickets booked yet.</p>
+  )
+)}
 
       {/* SECTION: ADD EVENT FORM */}
       {visibleSection === 'add' && <AddEventForm onSuccess={() => setVisibleSection('list')} />}
@@ -73,9 +132,9 @@ const AdminPanel = () => {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Contact</th>
-                <th>Event Name</th>
+                {/* <th>Event Name</th>
                 <th>Event Date</th>
-                <th>Event City</th>
+                <th>Event City</th> */}
                 <th>Message</th>
               </tr>
             </thead>
@@ -85,9 +144,9 @@ const AdminPanel = () => {
                   <td>{entry.name}</td>
                   <td>{entry.email}</td>
                   <td>{entry.contact}</td>
-                  <td>{entry.event_name}</td>
+                  {/* <td>{entry.event_name}</td>
                   <td>{entry.event_date?.split('T')[0]}</td>
-                  <td>{entry.event_city}</td>
+                  <td>{entry.event_city}</td> */}
                   <td>{entry.message}</td>
                 </tr>
               ))}
@@ -190,5 +249,8 @@ const AddEventForm = ({ onSuccess }) => {
     </form>
   );
 };
+
+
+
 
 export default AdminPanel;
